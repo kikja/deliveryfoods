@@ -4,15 +4,17 @@ import React from 'react'
 import About from '../components/restaurantDetail/About'
 import MenuItems from '../components/restaurantDetail/MenuItems'
 import { Divider } from '@rneui/base'
+import ViewCart from '../components/restaurantDetail/ViewCart'
 
 
 
-export default function RestaurantDetail() {
+export default function RestaurantDetail({route, navigation}) {
   return (
     <View>
-      <About />
-      <Divider width={1.2} />
+      <About route={route}/>
+      <Divider width={1.8} style={{marginVertical: 20}} />
       <MenuItems />
+      <ViewCart navigation={navigation} restaurantName={route.params.name} />
     </View>
   )
 }

@@ -1,21 +1,27 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { NavigationContainer, StackActions } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import Home from './screens/Home';
 import RestaurantDetail from './screens/RestaurantDetail';
+import configureStore from './redux/store';
+import { Provider as ReduxProvider } from 'react-redux';
+
+const store = configureStore()
 
 export default function RootNavigation({navigation, ...props}) {
     const Stack = createStackNavigator();
     const screenOptions = {
-        headerShow: false,
+        headerShown: false,
     }
   return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName='Home' screenOptions={screenOptions}>
-                <Stack.Screen name ='Home' component={Home}/>
-                <Stack.Screen name ='RestaurantDetail' component={RestaurantDetail }/>
-            </Stack.Navigator>
-        </NavigationContainer>
+      <ReduxProvider store={store} >
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName='Home' screenOptions={screenOptions}>
+                    <Stack.Screen name ='Home' component={Home}/>
+                    <Stack.Screen name ='RestaurantDetail' component={RestaurantDetail }/>
+                </Stack.Navigator>
+            </NavigationContainer>
+        </ReduxProvider>
   )
 }
